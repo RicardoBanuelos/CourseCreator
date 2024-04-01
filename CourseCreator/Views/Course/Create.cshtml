@@ -1,0 +1,37 @@
+﻿@using CourseCreator.ViewModels
+@model CreateCourseViewModel
+
+<h2>Create a course</h2>
+<form method="post" asp-action="Create">
+	<div class="form-group">
+		<label asp-for="Title">Course Title</label>
+		<input asp-for="Title" class="form-control" placeholder="Enter course title!" maxlength="100">
+		<span asp-validation-for="Title" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="Thumbnail">Thumbnail</label>
+		<input asp-for="Thumbnail" class="form-control" placeholder="Please enter a valid image URL, file uploading not supported...">
+		<span asp-validation-for="Thumbnail" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="SlidesIds">Slides Ids</label>
+		<input asp-for="SlidesIds" class="form-control" placeholder="Example: 1,2,3,4,5">
+		@if (Model.InvalidSlides)
+		{
+			<small style="color: red;">Invalid Slides Ids!!!</small>
+		}
+		<span asp-validation-for="SlidesIds" class="text-danger"></span>
+	</div>
+	<div class="mt-2 col-md-12">
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</div>
+</form>
+<div class="mt-2 col-md-12">
+	<h3>Existing Slides</h3>
+	<ul class="list-group">
+		@foreach(var slide in Model.Slides)
+		{
+			<li class="list-group-item">@slide.Id - @slide.Title</li>
+		}
+	</ul>
+</div>

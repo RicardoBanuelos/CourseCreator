@@ -1,0 +1,16 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">CourseCreator</h1>
+    <p>A simple web page that will allow you to create courses with your custom made slides!</p>
+    <div class="mt-2 col-md-12">
+        <a asp-controller="Slide" asp-action="Index" type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
+            Slides
+        </a>
+        <a asp-controller="Course" asp-action="Index" type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
+            Courses
+        </a>
+    </div>
+</div>

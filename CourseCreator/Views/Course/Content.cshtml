@@ -1,0 +1,51 @@
+﻿@using CourseCreator.ViewModels
+@model CourseContentViewModel
+
+<div>
+    <h1>@Model.Title</h1>
+    <div class="slide mt-4 col-md-12">
+        <h3 id="Title">@Model.Slides.First().Title</h3>
+    </div>
+    <hr class="solid"/>
+    <div class="mt-2 col-md-12">
+        <p id="Body"></p>
+    </div>
+    <div class="mt-4 col-md-12" style="text-align:center;" >
+        <button class="btn btn-sm btn-outline-secondary" id="previousSlide">Previous</button>
+        <button class="btn btn-sm btn-outline-secondary" id="nextSlide">Next</button>
+    </div>
+    <div id="Counter" class="mt-4 col-md-12" style="text-align:center;">
+        1 / @Model.Slides.Count()
+    </div>
+</div>
+
+<script>
+    var slides = @Html.Raw(Json.Serialize(Model.Slides));
+    var currentSlide = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var formattedText = slides[currentSlide].body.replace(/\r\n/g, '<br>');
+        document.getElementById('Body').innerHTML = formattedText;
+    })
+
+    document.getElementById('nextSlide').addEventListener('click', function () {
+        if (currentSlide < slides.length - 1) {
+            currentSlide++;
+            updateSlideDisplay();
+        }
+    });
+
+    document.getElementById('previousSlide').addEventListener('click', function () {
+        if (currentSlide > 0) {
+            currentSlide--;
+            updateSlideDisplay();
+        }
+    });
+
+    function updateSlideDisplay() {
+        document.getElementById("Counter").textContent = (currentSlide + 1).toString() + " / " + slides.length.toString();
+        document.getElementById('Title').textContent = slides[currentSlide].title;
+        var formattedText = slides[currentSlide].body.replace(/\r\n/g, '<br>');
+        document.getElementById('Body').innerHTML = formattedText;
+    }
+</script>
